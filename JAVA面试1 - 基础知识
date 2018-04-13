@@ -24,3 +24,5 @@ Map HashMap ConcurrentHashMap
 9. CAS如何实现？
 
 10. 四种方式实现单例？
+
+https://www.jianshu.com/p/d6c99e7370f5
