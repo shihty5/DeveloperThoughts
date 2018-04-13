@@ -1,8 +1,13 @@
 CoreJava
 
 1. HashCode相等两个类一定相等吗？equals呢？相反呢
+不一定相等。不同对象HASH冲突才会相等。
+Equals相同就必须要相同，这是编码规范。
 
 2. 介绍一下集合框架
+List ArrayList
+Set HashSet
+Map HashMap ConcurrentHashMap
 
 3. HashMap和HashTable底层实现区别是什么？   HashTable和ConcurrentHashMap呢？
 
