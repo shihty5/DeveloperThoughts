@@ -1,0 +1,21 @@
+CoreJava
+
+1. HashCode相等两个类一定相等吗？equals呢？相反呢
+
+2. 介绍一下集合框架
+
+3. HashMap和HashTable底层实现区别是什么？   HashTable和ConcurrentHashMap呢？
+
+4. HashMap和TreeMap什么区别？底层数据结构是什么？
+
+5. 线程池都有哪些参数？ 底层如何实现？
+
+6. Synchronized和Lock什么区别？ Synchronized什么时候对象锁，什么时候全局锁？ 为什么？
+
+7. ThreadLocal是什么？ 底层如何实现？ 写一个例子？
+
+8. Volatile的工作原理？
+
+9. CAS如何实现？
+
+10. 四种方式实现单例？
