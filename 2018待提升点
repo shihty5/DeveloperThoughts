@@ -22,3 +22,62 @@
 6. 我们希望你对互联网或J2EE应用开发的最新潮流有关注，喜欢去看及尝试最新的技术，追求编写优雅的代码，从技术趋势和思路上能影响技术团队； 
 7. 如果你觉得和以上要求不符，但你对这个岗位很感兴趣，并且确认你以往的其他经历或经验能给团队带来自己独特的价值，那么也欢迎投递简历； 
 9.具有电子商务、金融行业背景的人优先。
+
+
+List 去重原题是 List("a", "a", "b", "c", "c", "c", "d", "d") => List("a", "b", "c", "d") （这里用的是类 Scala 语法定义） 
+
+1. 如果其上来写的是： 
+
+public void distintList(List<String> rawList) { 
+List<String> list = new ArrayList<>(); 
+for (int i = 0; i < rawList.size(), i++) { 
+String item = rawList.get(i); 
+if (!list.contains(item)) { 
+list.add(item); 
+} 
+} 
+} 
+
+那么可以问的点可能就有： 
+Q. 这里循环 List 还有什么别的方式？ 
+A. foreach 的方式。 
+Q. foreach 和这里的 fori 的方式有何区别。对 ArrayList 等不同 List 什么情况下该用哪个？ 
+A. foreach 的语法糖实现，不同数据量迭代器的创建开销。 
+Q. 这里定义 ArrayList 未给定大小，那么如果去重后的元素数量很大，这里会有什么可能？ 
+A. ArrayList 的实现原理，默认大小，超出后的数组拷贝。 
+Q. 这个实现最极端的算法时长大概多少，如何优化？ 
+A. 大概是 O(N^2)，可以用 HashSet 优化。 
+Q. 那么 HashSet 的去重实现原理你是否知道？ 
+A. HashSet 内部定义一个 HashMap，使用其 Key 去重。 
+Q. HashMap 的默认大小是多少，如果超出会怎么样？ 
+...演变到了集合的提问。 
+Q. 我看你的简历上写会 Java 8，这里能不能用 Java 8 来实现？ 
+
+2. 如果其比较熟悉 Java 8，写出来这样的代码： 
+
+public void distintList(List<String> rawList) { 
+rawList.stream().distinct().collect(toList()); 
+} 
+
+那么可以新的提问啦： 
+
+Q. List .stream() 之外 还有什么 stream ？ 
+A. 还有 parallelStream。 
+Q. 这里可以用 parallelStream 么，有无区别？ 
+A. 可以用，结果一样。parallelStream 在某些场景下可以并行执行，效率高。 
+Q. 那能否说一下，这里 stream 和 parallelStream 的去重原理？ 
+A. Stream 里面定义了 DistinctOps 用于去重操作，对于一般的 stream，使用 LinkedHashSet 去重，对于 parallelStream，使用 ConcurrentHashMap 去重。 
+Q. 为何用 ConcurrentHashMap，ConcurrentHashMap Java 7、8 的区别...演变到了集合的提问。 
+Q. 扩展提问：collect 后如果不想结束流该怎么办？ 
+
+3. 这一通后，开始改原问题，进行第二问：如果这里 List 里面不是一个 String，而是一个自定义类型，该怎么办？ 
+
+需要说重载 equals 和 hashCode 方法，为何重载，默认实现。hashCode 该如何生成，如何减少 hash 碰撞，有哪些常见 hash 算法。 
+
+4. 再将问题改到大数据范畴。Spark 和 Flink 之类的流式处理框架内都有类似 keyBy 的操作，将数据做分组，请问这里他们的实现方法。 
+Q. 希望说道二者自定义的 Tuple 集合和内部的 hash 算法。 
+
+6. 将原题改为 List("a", "a", "b", "c", "c", "c", "d", "d") => List(("a", 2), ("b", 1), ("c", 3), ("d", 2)) 
+
+7. 再将问题扩展到常见的大数据去重统计。如何在数据量高达几个亿，QPS 上万的系统上，去做去重计数？ 
+Q. 希望说道类似：布隆过滤，HyperLogLog，HyperLogLog++，等。 
